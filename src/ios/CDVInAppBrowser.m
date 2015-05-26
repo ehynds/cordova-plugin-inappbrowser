@@ -511,6 +511,7 @@
     self.spinner.contentMode = UIViewContentModeScaleToFill;
     self.spinner.frame = CGRectMake(0, 0, 20.0, 20.0);
     self.spinner.center = self.webView.center;
+    self.spinner.frame = CGRectOffset(self.spinner.frame, 0, TOOLBAR_HEIGHT);
     self.spinner.hidesWhenStopped = YES;
     self.spinner.multipleTouchEnabled = NO;
     self.spinner.opaque = NO;
