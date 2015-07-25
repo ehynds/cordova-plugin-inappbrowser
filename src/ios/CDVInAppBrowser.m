@@ -517,6 +517,8 @@
     self.spinner.opaque = NO;
     self.spinner.userInteractionEnabled = NO;
     [self.spinner stopAnimating];
+    
+    UIBarButtonItem *spinnerButton = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
 
     self.closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
     self.closeButton.enabled = YES;
@@ -525,7 +527,7 @@
 
     UIBarButtonItem* fixedSpaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpaceButton.width = 20;
-
+    
     float toolbarY = toolbarIsAtBottom ? self.view.bounds.size.height - TOOLBAR_HEIGHT : 0.0;
     CGRect toolbarFrame = CGRectMake(0.0, toolbarY, self.view.bounds.size.width, TOOLBAR_HEIGHT);
 
@@ -574,22 +576,27 @@
     self.addressLabel.textColor = [UIColor colorWithWhite:1.000 alpha:1.000];
     self.addressLabel.userInteractionEnabled = NO;
 
-    NSString* frontArrowString = NSLocalizedString(@"\U000025B6\U0000FE0E", nil); // create arrow from Unicode char
+    NSString *frontArrowString = NSLocalizedString(@"\U000025B6\U0000FE0E", nil); // create arrow from Unicode char
     self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:frontArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
     self.forwardButton.enabled = YES;
     self.forwardButton.imageInsets = UIEdgeInsetsZero;
 
-    NSString* backArrowString = NSLocalizedString(@"\U000025C0\U0000FE0E", nil); // create arrow from Unicode char
+    NSString *backArrowString = NSLocalizedString(@"\U000025C0\U0000FE0E", nil); // create arrow from Unicode char
     self.backButton = [[UIBarButtonItem alloc] initWithTitle:backArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
     self.backButton.enabled = YES;
     self.backButton.imageInsets = UIEdgeInsetsZero;
 
-    [self.toolbar setItems:@[self.backButton, fixedSpaceButton, self.forwardButton, flexibleSpaceButton, self.closeButton]];
+    [self.toolbar setItems:@[self.backButton,
+                             fixedSpaceButton,
+                             self.forwardButton,
+                             fixedSpaceButton,
+                             spinnerButton,
+                             flexibleSpaceButton,
+                             self.closeButton]];
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.addressLabel];
-    [self.view addSubview:self.spinner];
 }
 
 - (void) setWebViewFrame : (CGRect) frame {
